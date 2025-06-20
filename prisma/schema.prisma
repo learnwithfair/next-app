@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js" 
 }
 
 datasource db {
@@ -14,10 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String?
-  published Boolean  @default(false)
+  imageUrl  String?   
+  published Boolean  @default(true)
   createdAt DateTime @default(now())
 }
