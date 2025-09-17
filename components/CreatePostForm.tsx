@@ -1,31 +1,30 @@
-// components/CreatePostForm.tsx
-'use client';  // Add this line to mark this as a client component
+"use client"; // Add this line to mark this as a client component
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function CreatePostForm() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    let imageUrl = '';
+    let imageUrl = "";
 
     // If there's an image, upload it
     if (imageFile) {
       setUploading(true);
       const formData = new FormData();
-      formData.append('file', imageFile);
+      formData.append("file", imageFile);
 
-      const res = await fetch('/api/upload', {
-        method: 'POST',
+      const res = await fetch("/api/upload", {
+        method: "POST",
         body: formData,
       });
 
       const data = await res.json();
-      imageUrl = data.url;  // Image URL returned from /api/upload
+      imageUrl = data.url; // Image URL returned from /api/upload
       setUploading(false);
     }
 
@@ -33,22 +32,22 @@ export default function CreatePostForm() {
     const postData = {
       title,
       content,
-      imageUrl,  // Include the uploaded image URL here
+      imageUrl, // Include the uploaded image URL here
     };
 
-    const postRes = await fetch('/api/posts', {
-      method: 'POST',
+    const postRes = await fetch("/api/posts", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(postData),
     });
 
     const postResult = await postRes.json();
     if (postResult.success) {
-      alert('Post created successfully!');
+      alert("Post created successfully!");
     } else {
-      alert('Error creating post');
+      alert("Error creating post");
     }
   };
 
@@ -86,7 +85,7 @@ export default function CreatePostForm() {
         disabled={uploading}
         className="bg-blue-600 text-white px-4 py-2 rounded"
       >
-        {uploading ? 'Uploading...' : 'Create Post'}
+        {uploading ? "Uploading..." : "Create Post"}
       </button>
     </form>
   );

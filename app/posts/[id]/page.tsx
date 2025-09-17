@@ -25,6 +25,8 @@ export default async function PostPage({ params }: Props) {
             src={post.imageUrl}
             alt={post.title}
             className="max-w-full rounded my-4"
+            width={400}
+            height={200}
           />
         )}
         <p className="whitespace-pre-line">{post.content}</p>
